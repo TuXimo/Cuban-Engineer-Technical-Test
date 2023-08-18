@@ -1,4 +1,5 @@
 using System;
+using BoxJump.Code.Player.Scripts;
 using UnityEngine;
 
 public class SquareController : MonoBehaviour
@@ -8,40 +9,34 @@ public class SquareController : MonoBehaviour
     public bool IsJumping;
     public bool IsGrounded;
 
-
     private void Awake()
     {
         squareRigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Jump(float jumpForce = 10f)
+    public void Jump(VectorDirection vectorDirection = VectorDirection.Up, float jumpForce = 10f)
     {
-        //Square by default jumps diagonally
-        Vector2 direction = new Vector2(0.5f, 1);
+        Vector2 direction = default;
+        
+        //Lock directions
+        switch (vectorDirection)
+        {
+            case VectorDirection.Up:
+                direction = new Vector2(0, 1);
+                break;
+            case VectorDirection.UpRight:
+                direction = new Vector2(0.5f, 1);
+                break;
+            case VectorDirection.UpLeft:
+                direction = new Vector2(-0.5f, 1);
+                break;
+        }
         
         if(IsGrounded)
         {
             IsGrounded = false;
             squareRigidbody.AddForce(direction * jumpForce, ForceMode2D.Impulse);
             IsJumping = true;
-        }
-    }
-    
-    public void Jump(Vector2 direction, float jumpForce = 10f)
-    {
-        if(IsGrounded)
-        {
-            IsGrounded = false;
-            squareRigidbody.AddForce(direction * jumpForce, ForceMode2D.Impulse);
-            IsJumping = true;
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump(squareJumpForce);
         }
     }
 

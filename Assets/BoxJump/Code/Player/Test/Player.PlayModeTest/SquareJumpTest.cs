@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BoxJump.Code.Player.Scripts;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -14,12 +15,13 @@ public class SquareJumpTest
     [SetUp]
     public void SetUp()
     {
+        //Player Square Object
         squareObject = new GameObject("Square");
         squareObject.AddComponent<BoxCollider2D>();
         squareRigidbody2D = squareObject.AddComponent<Rigidbody2D>();
         squareController = squareObject.AddComponent<SquareController>();
         
-        //Ground
+        //Ground Object
         GameObject groundObject = new GameObject("Box Ground");
         groundObject.AddComponent<BoxCollider2D>();
         groundObject.tag = "Ground";
@@ -29,26 +31,25 @@ public class SquareJumpTest
     
     
     [Test]
-    public void SquareJumpTestSimplePasses()
+    public void SquareJump_WhenJumpMethodIsCalled_SquareJumps()
     {
         //Arrange
-        //Set "IsGrounded = true" by default 
-        squareController.IsGrounded = true;
+        squareController.IsGrounded = true; //Set "IsGrounded = true" by default to check if square can jump
         
         //Act
-        squareController.Jump(Vector2.up);
+        squareController.Jump(VectorDirection.Up);
         
         //Assert
         Assert.IsTrue(squareController.IsJumping);
     }
     
     [UnityTest]
-    public IEnumerator CheckGround_CanJump()
+    public IEnumerator SquareGroundCheck_TouchGround_IsGrounded()
     {
         //Act
         squareObject.transform.position = new Vector3(0, 5, 0);
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2f); //Wait two seconds for the square to fall to the ground
         
         //Assert
         Assert.IsTrue(squareController.IsGrounded);
