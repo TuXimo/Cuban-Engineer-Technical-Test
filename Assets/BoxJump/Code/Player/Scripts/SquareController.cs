@@ -6,8 +6,8 @@ public class SquareController : MonoBehaviour
 {
     [SerializeField] private float squareJumpForce = 10.0f;
     [SerializeField] private Rigidbody2D squareRigidbody;
-    public bool IsJumping;
-    public bool IsGrounded;
+    public bool isJumping;
+    public bool isGrounded;
 
     private void Awake()
     {
@@ -32,11 +32,11 @@ public class SquareController : MonoBehaviour
                 break;
         }
         
-        if(IsGrounded)
+        if(isGrounded)
         {
-            IsGrounded = false;
+            isGrounded = false;
             squareRigidbody.AddForce(direction * jumpForce, ForceMode2D.Impulse);
-            IsJumping = true;
+            isJumping = true;
         }
     }
 
@@ -44,8 +44,8 @@ public class SquareController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            IsGrounded = true;
-            IsJumping = false;
+            isGrounded = true;
+            isJumping = false;
         }
     }
 }

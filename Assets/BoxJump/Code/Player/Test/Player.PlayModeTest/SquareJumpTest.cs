@@ -15,12 +15,10 @@ public class SquareJumpTest
     [SetUp]
     public void SetUp()
     {
-        //Player Square Object
-        squareObject = new GameObject("Square");
-        squareObject.AddComponent<BoxCollider2D>();
-        squareRigidbody2D = squareObject.AddComponent<Rigidbody2D>();
-        squareController = squareObject.AddComponent<SquareController>();
-        
+        squareObject = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Player/SquarePlayer"));
+        squareRigidbody2D = squareObject.GetComponent<Rigidbody2D>();
+        squareController = squareObject.GetComponent<SquareController>();
+
         //Ground Object
         GameObject groundObject = new GameObject("Box Ground");
         groundObject.AddComponent<BoxCollider2D>();
@@ -34,13 +32,13 @@ public class SquareJumpTest
     public void SquareJump_WhenJumpMethodIsCalled_SquareJumps()
     {
         //Arrange
-        squareController.IsGrounded = true; //Set "IsGrounded = true" by default to check if square can jump
+        squareController.isGrounded = true; //Set "IsGrounded = true" by default to check if square can jump
         
         //Act
         squareController.Jump(VectorDirection.Up);
         
         //Assert
-        Assert.IsTrue(squareController.IsJumping);
+        Assert.IsTrue(squareController.isJumping);
     }
     
     [UnityTest]
@@ -48,10 +46,9 @@ public class SquareJumpTest
     {
         //Act
         squareObject.transform.position = new Vector3(0, 5, 0);
-        
         yield return new WaitForSeconds(2f); //Wait two seconds for the square to fall to the ground
         
         //Assert
-        Assert.IsTrue(squareController.IsGrounded);
+        Assert.IsTrue(squareController.isGrounded);
     }
 }
