@@ -10,21 +10,27 @@ public class StandGenerator : MonoBehaviour
     
     public Transform squareTransform;
     
-    private Vector3 lastStandEndPosition;
+    private Vector3 _lastStandEndPosition;
+
+    public bool IsDead { get; private set; } = false;
     
     private void Awake()
     {
-        lastStandEndPosition = groundTransform.Find("EndPosition").position;
+        _lastStandEndPosition = groundTransform.Find("EndPosition").position;
     }
 
     private void Update()
     {
+        
         GenerateNewPlatforms();
     }
 
     private void GenerateNewPlatforms()
     {
-        if (lastStandEndPosition.x - squareTransform.position.x < playerDistanceFromSpawnLevel)
+        if (squareTransform == null)
+            return;
+        
+        if (_lastStandEndPosition.x - squareTransform.position.x < playerDistanceFromSpawnLevel)
         {
             SpawnStand();
         }
@@ -32,8 +38,8 @@ public class StandGenerator : MonoBehaviour
 
     public void SpawnStand()
     {
-        Transform lastStandTransform = SpawnStand(lastStandEndPosition);
-        lastStandEndPosition = lastStandTransform.Find("Stand/EndPosition").position;
+        Transform lastStandTransform = SpawnStand(_lastStandEndPosition);
+        _lastStandEndPosition = lastStandTransform.Find("Stand/EndPosition").position;
     }
 
     public Transform SpawnStand(Vector3 spawnPos, float scale = 5)

@@ -1,7 +1,9 @@
 {
-    "name": "Square",
+    "name": "PlayerSquare",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:28457b42683c4a448b4ce38c7e47e77a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

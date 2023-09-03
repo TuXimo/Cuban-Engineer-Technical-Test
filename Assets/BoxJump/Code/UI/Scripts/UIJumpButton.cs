@@ -9,7 +9,7 @@ namespace BoxJump.Code.UI.Scripts
     public class UIJumpButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         [SerializeField] private bool isButtonPressed;
-        [SerializeField] private SquareController squareController;
+        [SerializeField] private PlayerSquareController playerSquareController;
         [SerializeField] private VectorDirection direction;
         
         public Slider sliderForceBar;
@@ -23,7 +23,7 @@ namespace BoxJump.Code.UI.Scripts
         {
             isButtonPressed = false;
             
-            squareController.Jump(direction, Force);
+            playerSquareController.Jump(direction, Force);
             Force = _initialForce;
             
             sliderForceBar.value = Force;
