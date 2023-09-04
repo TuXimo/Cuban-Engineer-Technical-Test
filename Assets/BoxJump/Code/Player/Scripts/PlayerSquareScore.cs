@@ -10,6 +10,7 @@ namespace BoxJump.Code.Player.Scripts
             if (other.CompareTag("StandTrigger"))
             {
                 GameManager.Score++;
+                Destroy(other.gameObject);
             }
         }
     }

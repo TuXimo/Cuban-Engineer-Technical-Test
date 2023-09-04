@@ -8,14 +8,14 @@ namespace BoxJump.Code.GameLogic
         public static int Score;
         public static PlayerData PlayerData { get; private set; }
 
-        public static event Action OnHighscore;
-
+        public static event Action OnHighScore;
+        
         private void Awake()
         {
+            //Set values and subscribe to events
             Score = 0;
-            PlayerData = JsonManager.LoadFromJson<PlayerData>();
-
-            OnHighscore += PlayerHighscore;
+            PlayerData = JsonManager.LoadFromJson<PlayerData>("PlayerData");
+            OnHighScore += PlayerHighScore;
         }
 
 
@@ -23,14 +23,14 @@ namespace BoxJump.Code.GameLogic
         {
             if (PlayerData.Highscore < Score)
             {
-                OnHighscore?.Invoke();
+                OnHighScore?.Invoke();
             }
         }
 
-        private void PlayerHighscore()
+        private void PlayerHighScore()
         {
             PlayerData.Highscore = Score;
-            JsonManager.SaveToJson(PlayerData);
+            JsonManager.SaveToJson(PlayerData, "PlayerData");
         }
     }
 }

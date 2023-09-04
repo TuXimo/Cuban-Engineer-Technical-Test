@@ -1,19 +1,24 @@
-using System;
-using BoxJump.Code.GameLogic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UISceneManager : MonoBehaviour
+namespace BoxJump.Code.UI.Scripts
 {
-    [SerializeField] private GameObject highScoreText;
-
-    private void Awake()
+    public class UISceneManager : MonoBehaviour
     {
-        GameManager.OnHighscore += () => highScoreText.SetActive(true);
-    }
 
-    public void RestartCurrentScene()
-    {
-        SceneManager.LoadScene(0);
+        public void RestartCurrentScene()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    
+        public void LoadStartMenu()
+        {
+            SceneManager.LoadScene("StartMenu");
+        }
+    
+        public void StartGame()
+        {
+            SceneManager.LoadScene("BoxJumpScene");
+        }
     }
 }

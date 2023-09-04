@@ -2,13 +2,26 @@ using BoxJump.Code.GameLogic;
 using TMPro;
 using UnityEngine;
 
-public class UINewRecord : MonoBehaviour
+namespace BoxJump.Code.UI.Scripts
 {
-
-    [SerializeField] private TMP_Text _text;
-    
-    void Awake()
+    public class UINewRecord : MonoBehaviour
     {
-        _text.text = $"New Record <br>{GameManager.Score}";
+        [SerializeField] private TMP_Text highScoreText;
+    
+        void Awake()
+        {
+            highScoreText.text = $"New Record <br>{GameManager.Score}";
+            GameManager.OnHighScore += EnableHighScoreText;
+        }
+
+        private void EnableHighScoreText()
+        {
+            highScoreText.gameObject.SetActive(true);
+        }
+    
+        private void OnDisable()
+        {
+            GameManager.OnHighScore -= EnableHighScoreText;
+        }
     }
 }

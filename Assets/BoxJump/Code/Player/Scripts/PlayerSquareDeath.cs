@@ -7,7 +7,7 @@ namespace BoxJump.Code.Player.Scripts
     public class PlayerSquareDeath : MonoBehaviour
     {
         [SerializeField] private UnityEvent deathEvent;
-        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private GameManager gameManager;
         
         public bool IsDead { get; private set; }    
 
@@ -31,9 +31,9 @@ namespace BoxJump.Code.Player.Scripts
         {
             deathEvent.Invoke();
             
-            Destroy(gameObject);
+            gameManager.CheckHighScore();
             
-            _gameManager.CheckHighScore();
+            Destroy(gameObject);
         }
     }
 }

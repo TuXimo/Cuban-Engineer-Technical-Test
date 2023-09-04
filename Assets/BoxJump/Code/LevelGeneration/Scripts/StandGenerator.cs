@@ -1,71 +1,73 @@
-using BoxJump.Code.LevelGeneration.Scripts;
 using UnityEngine;
 
-public class StandGenerator : MonoBehaviour
+namespace BoxJump.Code.LevelGeneration.Scripts
 {
-    private const int playerDistanceFromSpawnLevel = 15;
-    
-    [SerializeField] private Transform platformTransform;
-    [SerializeField] private Transform groundTransform;
-    
-    public Transform squareTransform;
-    
-    private Vector3 _lastStandEndPosition;
-
-    public bool IsDead { get; private set; } = false;
-    
-    private void Awake()
+    public class StandGenerator : MonoBehaviour
     {
-        _lastStandEndPosition = groundTransform.Find("EndPosition").position;
-    }
+        private const int playerDistanceFromSpawnLevel = 15;
+    
+        [SerializeField] private Transform platformTransform;
+        [SerializeField] private Transform groundTransform;
+    
+        public Transform squareTransform;
+    
+        private Vector3 _lastStandEndPosition;
 
-    private void Update()
-    {
-        
-        GenerateNewPlatforms();
-    }
-
-    private void GenerateNewPlatforms()
-    {
-        if (squareTransform == null)
-            return;
-        
-        if (_lastStandEndPosition.x - squareTransform.position.x < playerDistanceFromSpawnLevel)
+        public bool IsDead { get; private set; } = false;
+    
+        private void Awake()
         {
-            SpawnStand();
+            _lastStandEndPosition = groundTransform.Find("EndPosition").position;
         }
-    }
 
-    public void SpawnStand()
-    {
-        Transform lastStandTransform = SpawnStand(_lastStandEndPosition);
-        _lastStandEndPosition = lastStandTransform.Find("Stand/EndPosition").position;
-    }
+        private void Update()
+        {
+        
+            GenerateNewPlatforms();
+        }
 
-    public Transform SpawnStand(Vector3 spawnPos, float scale = 5)
-    {
-        Transform stand = platformTransform.transform.GetChild(0);
+        private void GenerateNewPlatforms()
+        {
+            if (squareTransform == null)
+                return;
+        
+            if (_lastStandEndPosition.x - squareTransform.position.x < playerDistanceFromSpawnLevel)
+            {
+                SpawnStand();
+            }
+        }
 
-        StandCharacteristics randomStandCharacteristics = RandomStandCharacteristics();
-        stand.transform.localScale = randomStandCharacteristics.Scale;
-        stand.transform.position = randomStandCharacteristics.LocalPosition;
+        public void SpawnStand()
+        {
+            Transform lastStandTransform = SpawnStand(_lastStandEndPosition);
+            _lastStandEndPosition = lastStandTransform.Find("Stand/EndPosition").position;
+        }
 
-        Transform transformStand = Instantiate(platformTransform, spawnPos, Quaternion.identity);
-        return transformStand;
-    }
+        public Transform SpawnStand(Vector3 spawnPos, float scale = 5)
+        {
+            Transform stand = platformTransform.transform.GetChild(0);
 
-    public StandCharacteristics RandomStandCharacteristics()
-    {
-        int minScaleValue = 2, maxScaleValue = 7;
-        float minHorizontalPositionValue = 2f, maxHorizontalPositionValue = 4f;
-        float minVerticalPositionValue = -1.5f, maxVerticalPositionValue = 1.5f;
+            StandCharacteristics randomStandCharacteristics = RandomStandCharacteristics();
+            stand.transform.localScale = randomStandCharacteristics.Scale;
+            stand.transform.position = randomStandCharacteristics.LocalPosition;
 
-        StandCharacteristics standCharacteristics = new StandCharacteristics(
-            new Vector2(Random.Range(minScaleValue, maxScaleValue), 1),
-            new Vector2(Random.Range(minHorizontalPositionValue, maxHorizontalPositionValue),
-                Random.Range(minVerticalPositionValue, maxVerticalPositionValue))
-        );
+            Transform transformStand = Instantiate(platformTransform, spawnPos, Quaternion.identity);
+            return transformStand;
+        }
 
-        return standCharacteristics;
+        public StandCharacteristics RandomStandCharacteristics()
+        {
+            int minScaleValue = 2, maxScaleValue = 7;
+            float minHorizontalPositionValue = 2f, maxHorizontalPositionValue = 4f;
+            float minVerticalPositionValue = -1f, maxVerticalPositionValue = 1.5f;
+
+            StandCharacteristics standCharacteristics = new StandCharacteristics(
+                new Vector2(Random.Range(minScaleValue, maxScaleValue), 1),
+                new Vector2(Random.Range(minHorizontalPositionValue, maxHorizontalPositionValue),
+                    Random.Range(minVerticalPositionValue, maxVerticalPositionValue))
+            );
+
+            return standCharacteristics;
+        }
     }
 }

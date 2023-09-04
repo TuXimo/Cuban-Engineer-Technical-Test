@@ -4,16 +4,15 @@ namespace BoxJump.Code.Player.Scripts
 {
     public class PlayerSquareController : MonoBehaviour
     {
-        [SerializeField] private float squareJumpForce = 10.0f;
         [SerializeField] private Rigidbody2D squareRigidbody;
-        [SerializeField] private PlayerSquareDeath _playerSquareDeath;
+        [SerializeField] private PlayerSquareDeath playerSquareDeath;
         
         public bool isJumping;
         public bool isGrounded;
 
         public void Jump(VectorDirection vectorDirection = VectorDirection.Up, float jumpForce = 10f)
         {
-            if (_playerSquareDeath.IsDead)
+            if (playerSquareDeath.IsDead)
                 return;
             
             
