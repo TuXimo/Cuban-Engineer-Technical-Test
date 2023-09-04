@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BoxJump.Code.GameLogic;
+using UnityEngine;
 
 namespace BoxJump.Code.Player.Scripts
 {
@@ -8,7 +9,7 @@ namespace BoxJump.Code.Player.Scripts
         {
             if (other.CompareTag("StandTrigger"))
             {
-                GameManager.score++;
+                GameManager.Score++;
             }
         }
     }

@@ -6,16 +6,17 @@ namespace BoxJump.Code.Player.Scripts
     {
         [SerializeField] private float squareJumpForce = 10.0f;
         [SerializeField] private Rigidbody2D squareRigidbody;
+        [SerializeField] private PlayerSquareDeath _playerSquareDeath;
+        
         public bool isJumping;
         public bool isGrounded;
 
-        private void Awake()
-        {
-            squareRigidbody = GetComponent<Rigidbody2D>();
-        }
-
         public void Jump(VectorDirection vectorDirection = VectorDirection.Up, float jumpForce = 10f)
         {
+            if (_playerSquareDeath.IsDead)
+                return;
+            
+            
             Vector2 direction = default;
         
             //Lock directions
@@ -39,7 +40,6 @@ namespace BoxJump.Code.Player.Scripts
                 isJumping = true;
             }
         }
-
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Ground"))

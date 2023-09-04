@@ -58,7 +58,7 @@ public class StandGenerator : MonoBehaviour
     {
         int minScaleValue = 2, maxScaleValue = 7;
         float minHorizontalPositionValue = 2f, maxHorizontalPositionValue = 4f;
-        float minVerticalPositionValue = -2f, maxVerticalPositionValue = 1.5f;
+        float minVerticalPositionValue = -1.5f, maxVerticalPositionValue = 1.5f;
 
         StandCharacteristics standCharacteristics = new StandCharacteristics(
             new Vector2(Random.Range(minScaleValue, maxScaleValue), 1),

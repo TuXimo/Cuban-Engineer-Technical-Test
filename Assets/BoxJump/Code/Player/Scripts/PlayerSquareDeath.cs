@@ -1,4 +1,4 @@
-﻿using System;
+﻿using BoxJump.Code.GameLogic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,7 +7,8 @@ namespace BoxJump.Code.Player.Scripts
     public class PlayerSquareDeath : MonoBehaviour
     {
         [SerializeField] private UnityEvent deathEvent;
-
+        [SerializeField] private GameManager _gameManager;
+        
         public bool IsDead { get; private set; }    
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -22,9 +23,17 @@ namespace BoxJump.Code.Player.Scripts
         {
             if (IsDead)
             {
-                deathEvent.Invoke();
-                Destroy(gameObject);
+                OnPlayerDeath();
             }
+        }
+
+        private void OnPlayerDeath()
+        {
+            deathEvent.Invoke();
+            
+            Destroy(gameObject);
+            
+            _gameManager.CheckHighScore();
         }
     }
 }
