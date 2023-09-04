@@ -8,8 +8,6 @@ namespace BoxJump.Code.GameLogic
         public static int Score;
         public static PlayerData PlayerData { get; private set; }
 
-        public static event Action OnHighScore;
-        
         private void Awake()
         {
             //Set values and subscribe to events
@@ -18,13 +16,12 @@ namespace BoxJump.Code.GameLogic
             OnHighScore += PlayerHighScore;
         }
 
+        public static event Action OnHighScore;
+
 
         public void CheckHighScore()
         {
-            if (PlayerData.Highscore < Score)
-            {
-                OnHighScore?.Invoke();
-            }
+            if (PlayerData.Highscore < Score) OnHighScore?.Invoke();
         }
 
         private void PlayerHighScore()

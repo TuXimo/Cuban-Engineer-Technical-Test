@@ -10,12 +10,9 @@ namespace BoxJump.Code.Player.Scripts
 
         private void Update()
         {
-            playerAnimator.SetBool("isGrounded",_playerSquareController.isGrounded);
+            playerAnimator.SetBool("isGrounded", _playerSquareController.isGrounded);
 
-            if (_playerSquareController.isJumping)
-            {
-                playerAnimator.SetTrigger("isJumping");
-            }
+            if (_playerSquareController.isJumping) playerAnimator.SetTrigger("isJumping");
         }
     }
 }

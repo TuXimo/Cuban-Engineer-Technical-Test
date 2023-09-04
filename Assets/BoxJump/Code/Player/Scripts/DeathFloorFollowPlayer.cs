@@ -6,8 +6,8 @@ namespace BoxJump.Code.Player.Scripts
     {
         [SerializeField] private Transform squarePlayer;
         private float _squareHorizontalPosition;
-    
-    
+
+
         private void Awake()
         {
             _squareHorizontalPosition = transform.position.y;

@@ -1,3 +1,4 @@
+using BoxJump.Code.GameLogic;
 using UnityEngine;
 
 namespace BoxJump.Code.Player.Scripts
@@ -6,18 +7,37 @@ namespace BoxJump.Code.Player.Scripts
     {
         [SerializeField] private Rigidbody2D squareRigidbody;
         [SerializeField] private PlayerSquareDeath playerSquareDeath;
-        
-        public bool isJumping;
-        public bool isGrounded;
+
+        [Space] [SerializeField] private SpriteRenderer playerColor;
+
+        [SerializeField] private string playerName;
+
+        [HideInInspector] public bool isJumping;
+        [HideInInspector] public bool isGrounded;
+
+        private void Awake()
+        {
+            playerColor.color = GameManager.PlayerData.Color;
+            playerName = GameManager.PlayerData.Name;
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                isGrounded = true;
+                isJumping = false;
+            }
+        }
 
         public void Jump(VectorDirection vectorDirection = VectorDirection.Up, float jumpForce = 10f)
         {
             if (playerSquareDeath.IsDead)
                 return;
-            
-            
+
+
             Vector2 direction = default;
-        
+
             //Lock directions
             switch (vectorDirection)
             {
@@ -31,20 +51,12 @@ namespace BoxJump.Code.Player.Scripts
                     direction = new Vector2(-0.5f, 1);
                     break;
             }
-        
-            if(isGrounded)
+
+            if (isGrounded)
             {
                 isGrounded = false;
                 squareRigidbody.AddForce(direction * jumpForce, ForceMode2D.Impulse);
                 isJumping = true;
-            }
-        }
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Ground"))
-            {
-                isGrounded = true;
-                isJumping = false;
             }
         }
     }

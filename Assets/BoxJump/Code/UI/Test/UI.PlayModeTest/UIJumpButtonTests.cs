@@ -13,20 +13,20 @@ namespace BoxJump.Code.UI.Test.UI.PlayModeTest
         public IEnumerator TestJumpButtonHold_WhenButtonIsHeld_JumpForceIncrease()
         {
             //Arrange
-            GameObject gameObjectButton = new GameObject("Button");
-            UIJumpButton uiJumpButton = gameObjectButton.AddComponent<UIJumpButton>();
-        
-            GameObject gameObjectSlider = new GameObject("Slider");
-            Slider uiSlider = gameObjectSlider.AddComponent<Slider>();
+            var gameObjectButton = new GameObject("Button");
+            var uiJumpButton = gameObjectButton.AddComponent<UIJumpButton>();
+
+            var gameObjectSlider = new GameObject("Slider");
+            var uiSlider = gameObjectSlider.AddComponent<Slider>();
 
             uiJumpButton.sliderForceBar = uiSlider;
-            float initialForce = uiJumpButton.Force;
-        
+            var initialForce = uiJumpButton.Force;
+
             //Act
             uiJumpButton.OnPointerDown(null);
 
             yield return null;
-        
+
             //Assert
             Assert.Greater(uiJumpButton.Force, initialForce, "The force didn't change");
         }

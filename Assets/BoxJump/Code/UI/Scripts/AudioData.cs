@@ -2,8 +2,8 @@
 {
     public class AudioData
     {
-        public float MasterVolume = 1;
-        public float SfxVolume = 1;
-        public float MusicVolume = 1;
+        public float MasterVolume;
+        public float MusicVolume;
+        public float SfxVolume;
     }
 }

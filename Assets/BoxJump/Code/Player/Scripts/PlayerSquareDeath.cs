@@ -8,31 +8,25 @@ namespace BoxJump.Code.Player.Scripts
     {
         [SerializeField] private UnityEvent deathEvent;
         [SerializeField] private GameManager gameManager;
-        
-        public bool IsDead { get; private set; }    
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if(other.CompareTag("DeathGround"))
-            {
-                IsDead = true;
-            }
-        }
+        public bool IsDead { get; private set; }
 
         private void Update()
         {
-            if (IsDead)
-            {
-                OnPlayerDeath();
-            }
+            if (IsDead) OnPlayerDeath();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("DeathGround")) IsDead = true;
         }
 
         private void OnPlayerDeath()
         {
             deathEvent.Invoke();
-            
+
             gameManager.CheckHighScore();
-            
+
             Destroy(gameObject);
         }
     }
