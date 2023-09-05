@@ -25,7 +25,10 @@ namespace BoxJump.Code.Player.Scripts
         {
             deathEvent.Invoke();
 
-            gameManager.CheckHighScore();
+            if(gameManager != null)
+            {
+                gameManager.CheckHighScore();
+            }
 
             Destroy(gameObject);
         }

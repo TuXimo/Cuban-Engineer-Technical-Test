@@ -10,11 +10,11 @@ namespace BoxJump.Code.UI.Scripts
     {
         [SerializeField] private Image imageColor;
         [SerializeField] private TMP_InputField inputTextColor;
-        [SerializeField] private Color playerColor;
-        private PlayerData _playerData = new();
+        private Color _playerColor;
+        private PlayerData _playerData = new PlayerData();
 
 
-        private void Start()
+        private void Awake()
         {
             LoadAndSetPlayerData();
             inputTextColor.onValueChanged.AddListener(ChangeColor);
@@ -26,16 +26,16 @@ namespace BoxJump.Code.UI.Scripts
 
             if (hexValue.Length == 6)
             {
-                playerColor = HexToColorCode(inputTextColor.text);
-                imageColor.color = playerColor;
-                _playerData.Color = playerColor;
+                _playerColor = HexToColorCode(inputTextColor.text);
+                imageColor.color = _playerColor;
+                _playerData.Color = _playerColor;
                 JsonManager.SaveToJson(_playerData, "PlayerData");
             }
         }
 
         private Color HexToColorCode(string hex)
         {
-            hex = hex.Replace("#", ""); // Elimina el "#" si está presente
+            hex = hex.Replace("#", "");
             var r = byte.Parse(hex.Substring(0, 2), NumberStyles.HexNumber);
             var g = byte.Parse(hex.Substring(2, 2), NumberStyles.HexNumber);
             var b = byte.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
@@ -47,9 +47,13 @@ namespace BoxJump.Code.UI.Scripts
         {
             _playerData = JsonManager.LoadFromJson<PlayerData>("PlayerData");
 
-            if (_playerData.Color == new Color(0, 0, 0, 0)) _playerData.Color = imageColor.color;
-
+            if (_playerData.Color == new Color(0, 0, 0, 0))
+            {
+                _playerData.Color = imageColor.color;
+            }
+            
             imageColor.color = _playerData.Color;
+            
             JsonManager.SaveToJson(_playerData, "PlayerData");
         }
     }

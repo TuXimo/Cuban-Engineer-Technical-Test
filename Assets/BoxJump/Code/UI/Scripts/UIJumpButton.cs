@@ -1,4 +1,5 @@
 ﻿using BoxJump.Code.Player.Scripts;
+using BoxJump.Code.Player.Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

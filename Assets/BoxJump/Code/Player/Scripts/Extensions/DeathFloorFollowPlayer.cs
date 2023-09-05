@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BoxJump.Code.Player.Scripts
+namespace BoxJump.Code.Player.Scripts.Extensions
 {
     public class DeathFloorFollowPlayer : MonoBehaviour
     {

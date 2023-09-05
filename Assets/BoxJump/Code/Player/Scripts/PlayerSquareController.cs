@@ -1,4 +1,5 @@
 using BoxJump.Code.GameLogic;
+using BoxJump.Code.Player.Scripts.Extensions;
 using UnityEngine;
 
 namespace BoxJump.Code.Player.Scripts
@@ -17,8 +18,11 @@ namespace BoxJump.Code.Player.Scripts
 
         private void Awake()
         {
-            playerColor.color = GameManager.PlayerData.Color;
-            playerName = GameManager.PlayerData.Name;
+            if(GameManager.PlayerData != null)
+            {
+                playerColor.color = GameManager.PlayerData.Color;
+                playerName = GameManager.PlayerData.Name;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D other)

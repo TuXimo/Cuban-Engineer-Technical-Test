@@ -10,7 +10,7 @@ namespace BoxJump.Code.UI.Scripts
 
         private void Awake()
         {
-            highScoreText.text = $"New Record <br>{GameManager.Score}";
+            highScoreText.text = $"New Record {GameManager.PlayerData.Name}<br>{GameManager.Score}"; 
             GameManager.OnHighScore += EnableHighScoreText;
         }
 

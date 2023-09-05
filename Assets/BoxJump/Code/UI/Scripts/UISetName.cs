@@ -13,13 +13,17 @@ namespace BoxJump.Code.UI.Scripts
         private void Start()
         {
             SetupData();
+            
             inputFieldName.onValueChanged.AddListener(arg0 => NameDataSave());
         }
 
         private void SetupData()
         {
             _playerData = JsonManager.LoadFromJson<PlayerData>("PlayerData");
-            if (_playerData.Name != "") inputFieldName.text = _playerData.Name;
+            if (_playerData.Name != "")
+            {
+                inputFieldName.text = _playerData.Name;
+            }
         }
 
         private void NameDataSave()

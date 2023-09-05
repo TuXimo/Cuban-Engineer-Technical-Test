@@ -10,14 +10,12 @@ namespace BoxJump.Code.Player.Test.Player.PlayModeTest
     {
         private PlayerSquareController _playerSquareController;
         private GameObject _squareGameObject;
-        private Rigidbody2D _squareRigidbody2D;
 
 
         [SetUp]
         public void SetUp()
         {
             _squareGameObject = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Player/SquarePlayer"));
-            _squareRigidbody2D = _squareGameObject.GetComponent<Rigidbody2D>();
             _playerSquareController = _squareGameObject.GetComponent<PlayerSquareController>();
         }
 
@@ -53,9 +51,9 @@ namespace BoxJump.Code.Player.Test.Player.PlayModeTest
 
         [UnityTest]
         [TestCase(0, ExpectedResult = null)]
-        [TestCase(1, ExpectedResult = null)]
         [TestCase(2, ExpectedResult = null)]
-        [TestCase(3, ExpectedResult = null)]
+        [TestCase(4, ExpectedResult = null)]
+        [TestCase(6, ExpectedResult = null)]
         public IEnumerator SquareFallsOut_TouchTriggerWithPositiveHeight_PlayerDies(
             float distanceBetweenDeathFloorAndPlayer)
         {
@@ -67,7 +65,7 @@ namespace BoxJump.Code.Player.Test.Player.PlayModeTest
 
             var playerSquareDeath = _squareGameObject.GetComponent<PlayerSquareDeath>();
 
-            //yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
             //Checks if the player is above the trigger and matches the player is still alive
             Assert.IsTrue(!playerSquareDeath.IsDead ==
                           deathGroundObject.transform.position.y <= _squareGameObject.transform.position.y);
@@ -77,6 +75,12 @@ namespace BoxJump.Code.Player.Test.Player.PlayModeTest
         public void TearDown()
         {
             Object.Destroy(_squareGameObject);
+            Object.Destroy(_playerSquareController);
+
+            foreach (var gameObject in GameObject.FindGameObjectsWithTag("Ground"))
+            {
+                Object.Destroy(gameObject);
+            }
         }
     }
 }
