@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 478093533825927358}
   - component: {fileID: 5285592811229629692}
   - component: {fileID: 7830488917846776747}
+  - component: {fileID: 4020336358401574759}
   m_Layer: 0
   m_Name: SquarePlayer
   m_TagString: Player
@@ -408,6 +409,18 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
   gameManager: {fileID: 0}
+--- !u!114 &4020336358401574759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511812381723376557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20998b4df34c47299a30657cef0281af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8659890016195285403
 GameObject:
   m_ObjectHideFlags: 0

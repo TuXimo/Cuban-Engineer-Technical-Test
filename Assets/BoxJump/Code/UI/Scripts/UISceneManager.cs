@@ -19,5 +19,10 @@ namespace BoxJump.Code.UI.Scripts
         {
             SceneManager.LoadScene("BoxJumpScene");
         }
+        
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

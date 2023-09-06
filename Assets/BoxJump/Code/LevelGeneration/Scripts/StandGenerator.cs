@@ -35,7 +35,7 @@ namespace BoxJump.Code.LevelGeneration.Scripts
 
         public void SpawnStand()
         {
-            var lastStandTransform = SpawnStand(_lastStandEndPosition);
+            var lastStandTransform = SpawnStand(new Vector2(_lastStandEndPosition.x,0));
             _lastStandEndPosition = lastStandTransform.Find("Stand/EndPosition").position;
         }
 
@@ -45,7 +45,7 @@ namespace BoxJump.Code.LevelGeneration.Scripts
 
             var randomStandCharacteristics = RandomStandCharacteristics();
             stand.transform.localScale = randomStandCharacteristics.Scale;
-            stand.transform.position = randomStandCharacteristics.LocalPosition;
+            stand.transform.localPosition = randomStandCharacteristics.LocalPosition;
 
             var transformStand = Instantiate(platformTransform, spawnPos, Quaternion.identity);
             return transformStand;
@@ -53,9 +53,9 @@ namespace BoxJump.Code.LevelGeneration.Scripts
 
         public StandCharacteristics RandomStandCharacteristics()
         {
-            int minScaleValue = 2, maxScaleValue = 7;
-            float minHorizontalPositionValue = 2f, maxHorizontalPositionValue = 4f;
-            float minVerticalPositionValue = -1f, maxVerticalPositionValue = 1.5f;
+            float minScaleValue = 3f, maxScaleValue = 7f;
+            float minHorizontalPositionValue = 2f, maxHorizontalPositionValue = 6f;
+            float minVerticalPositionValue = -2f, maxVerticalPositionValue = 3f;
 
             var standCharacteristics = new StandCharacteristics(
                 new Vector2(Random.Range(minScaleValue, maxScaleValue), 1),

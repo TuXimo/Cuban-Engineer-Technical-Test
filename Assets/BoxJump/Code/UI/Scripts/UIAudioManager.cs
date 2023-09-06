@@ -26,9 +26,9 @@ namespace BoxJump.Code.UI.Scripts
 
             if (_audioData != null)
             {
-                audioSliders[0].value = _audioData.MasterVolume;
-                audioSliders[1].value = _audioData.MusicVolume;
-                audioSliders[2].value = _audioData.SfxVolume;
+                audioSliders[0].value = _audioData.MasterVolume == 0 ? 1 : _audioData.MasterVolume;
+                audioSliders[1].value = _audioData.MusicVolume == 0 ? 1 : _audioData.MusicVolume;
+                audioSliders[2].value = _audioData.SfxVolume == 0 ? 1 : _audioData.SfxVolume;
             }
         }
 

@@ -11,14 +11,14 @@ namespace BoxJump.Code.GameLogic
 
         public static void SaveToJson(object _object, string fileName)
         {
-            jsonPath = $"{Application.dataPath}/BoxJump/Resources/FileSaves/{fileName}.json";
+            jsonPath = $"{Application.persistentDataPath}/{fileName}.json";
             var json = JsonUtility.ToJson(_object, true);
             File.WriteAllText(jsonPath, json);
         }
 
         public static T LoadFromJson<T>(string fileName, T defaultData = default)
         {
-            jsonPath = $"{Application.dataPath}/BoxJump/Resources/FileSaves/{fileName}.json";
+            jsonPath = $"{Application.persistentDataPath}/{fileName}.json";
 
             if (!File.Exists(jsonPath))
             {
