@@ -6,13 +6,16 @@ namespace BoxJump.Code.Player.Scripts
     {
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private PlayerSquareController _playerSquareController;
+        
+        private readonly int _isGrounded = Animator.StringToHash("isGrounded");
+        private readonly int _isJumping = Animator.StringToHash("isJumping");
 
 
         private void Update()
         {
-            playerAnimator.SetBool("isGrounded", _playerSquareController.isGrounded);
+            playerAnimator.SetBool(_isGrounded, _playerSquareController.isGrounded);
 
-            if (_playerSquareController.isJumping) playerAnimator.SetTrigger("isJumping");
+            if (_playerSquareController.isJumping) playerAnimator.SetTrigger(_isJumping);
         }
     }
 }

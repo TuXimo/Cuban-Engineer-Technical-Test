@@ -13,7 +13,6 @@ namespace BoxJump.Code.UI.Scripts
         private Color _playerColor;
         private PlayerData _playerData = new PlayerData();
 
-
         private void Awake()
         {
             LoadAndSetPlayerData();
@@ -26,13 +25,55 @@ namespace BoxJump.Code.UI.Scripts
 
             if (hexValue.Length == 6)
             {
-                _playerColor = HexToColorCode(inputTextColor.text);
-                imageColor.color = _playerColor;
-                _playerData.Color = _playerColor;
-                JsonManager.SaveToJson(_playerData, "PlayerData");
+                if (IsHex(hexValue))
+                {
+                    UpdatePlayerColor();
+                }
+                else
+                {
+                    DisplayError("#ERROR: invalid format");
+                }
+            }
+            else if (hexValue.Length > 6)
+            {
+                DisplayError("#ERROR more than 6 characters");
+            }
+            
+            bool IsHex(string value)
+            {
+                foreach (char c in value)
+                {
+                    if (!char.IsDigit(c) && !("ABCDEFabcdef".Contains(c.ToString())))
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
+        
+        private void UpdatePlayerColor()
+        {
+            _playerColor = HexToColorCode(inputTextColor.text);
+            imageColor.color = _playerColor;
+            _playerData.Color = _playerColor;
+            JsonManager.SaveToJson(_playerData, "PlayerData");
+            ResetInputTextColor("Enter HexCode color...");
+        }
 
+        private void DisplayError(string errorMessage)
+        {
+            inputTextColor.text = "";
+            inputTextColor.placeholder.color = Color.red;
+            inputTextColor.placeholder.GetComponent<TMP_Text>().text = errorMessage;
+        }
+
+        private void ResetInputTextColor(string placeholderText)
+        {
+            inputTextColor.placeholder.color = Color.white;
+            inputTextColor.placeholder.GetComponent<TMP_Text>().text = placeholderText;
+        }
+        
         private Color HexToColorCode(string hex)
         {
             hex = hex.Replace("#", "");
